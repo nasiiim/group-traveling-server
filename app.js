@@ -1,14 +1,10 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
+
 require("dotenv").config();
 
 // ℹ️ Connects to the database
 require("./db");
 
 const express = require("express");
-
-
-
 
 const app = express();
 
@@ -19,11 +15,8 @@ require("./config")(app);
 const allRoutes = require("./routes");
 app.use("/api", allRoutes);
 
-// default value for title local
-const capitalize = require("./utils/capitalize");
-const projectName = "group-travelling-server";
 
-app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
+
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
