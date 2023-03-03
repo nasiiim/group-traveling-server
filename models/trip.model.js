@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 
-const groupTripSchema = new Schema({
+const tripSchema = new Schema({
      
     creatorId: {
         type: Schema.Types.ObjectId,
@@ -34,6 +34,6 @@ const groupTripSchema = new Schema({
 })
 
 
-const GroupTrip = model("GroupTrip", groupTripSchema);
+const Trip = model("Trip", tripSchema);
 
-module.exports = GroupTrip;
+module.exports = Trip;
