@@ -78,3 +78,5 @@ router.delete("/trips/:tripId", (req, res, next) => {
    )
    .catch((err) => res.json(err))
 })
+
+module.exports = router;

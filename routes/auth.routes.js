@@ -3,13 +3,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
 
-const router = express.Router();
 
-const { isAuthenticated } = require("./../middleware/jwt.middleware.js");
+
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+const router = express.Router();
 const saltRounds = 10;
 
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup',  (req, res, next) => {
     const { email, password, name } = req.body
 
 
@@ -26,7 +27,7 @@ router.post('/signup', (req, res, next) => {
     }
 
 
-    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+    const passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
     if (!passwordRegex.test(password)) {
         res.status(400).json({ message: 'Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.' });
         return;
@@ -43,10 +44,10 @@ router.post('/signup', (req, res, next) => {
             // to hash the password
             const salt = bcrypt.genSaltSync(saltRounds);
             const hashedPassword = bcrypt.hashSync(password, salt);
+
             return User.create({ email, password: hashedPassword, name })
 
         })
-
         .then((createdUser) => {
             const { email, name, _id } = createdUser;
 
@@ -104,7 +105,10 @@ router.post('/login', (req, res, next) => {
        res.status(500).json({ message: "Internal Server Error" }));
 })
 
-router.get('verify', isAuthenticated, (req, res, next) => {
+
+
+
+router.get('/verify', isAuthenticated, (req, res, next) => {
 
     console.log(`req.payload`, req.payload);
 

@@ -8,10 +8,10 @@ const tripSchema = new Schema({
         ref: "User"
     },
     startDate: { 
-        type: Data, 
+        type: Date, 
         required: true },
     endDate: { 
-        type: Data,
+        type: Date,
          required: true },
     // startPoint: {
     //     type: String,

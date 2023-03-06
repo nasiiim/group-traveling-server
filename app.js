@@ -1,6 +1,8 @@
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('./swagger_output.json')
 
-require("dotenv").config();
-
+// require("dotenv").config();
+require("dotenv/config");
 // ℹ️ Connects to the database
 require("./db");
 
@@ -13,23 +15,23 @@ const app = express();
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
 
-
-const allRoutes = require("./routes");
-app.use("/api", allRoutes);
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 
 
 
 // 👇 Start handling routes here
-const allRoutes = require("./routes");
-app.use("/", allRoutes);
+// const allRoutes = require("./routes");
+// app.use("/", allRoutes);
 
-const authRouter = require("./routes/auth.routes"); 
-app.use("/auth", authRouter);
+
 
 
 const tripRouter = require("./routes/trip.routes")
-app.use("/trips", isAuthenticated, tripRouter)
+app.use("/trip", isAuthenticated, tripRouter)
+
+const authRouter = require("./routes/auth.routes"); 
+app.use("/auth", authRouter);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
