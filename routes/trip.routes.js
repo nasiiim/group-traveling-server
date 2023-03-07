@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-const Trip = require("../models/trip.model")
+const Trip = require("../models/Trip.model")
 
 
 //create new trip
 router.post("/trips", (req, res, next) => {
-    const { creatorId, startDate, endDate, destination } = req.body
+    const { startDate, endDate, destination } = req.body
 
-    Trip.create({ startDate, endDate, destination, creator: creatorId, subscriber: [] })
+    Trip.create({ startDate, endDate, destination })
     .then((response) => res.json(response) )
     .catch((err) => res.json(err))
 })
@@ -17,7 +17,7 @@ router.post("/trips", (req, res, next) => {
 //get all of the trips
 router.get("/trips", (req, res, next) => {
     Trip.find()
-    .populate("subscriber")
+    // .populate("subscriber")
     .then((allTrips) => res.json(allTrips))
     .catch((err) => res.json(err))
 })
@@ -38,14 +38,15 @@ router.get("/trips", (req, res, next) => {
 // })
 
 
-// get a specific trip by country 
-router.get("/trips", (req, res, next) => {
-    Trip.find({ "destination" : {$regex: '.*' + destination + '.*' } })
-    .then((trip) => res.json(trip))
-    .catch((err) => res.json(err))
-})
 
 
+router.get('/trips/:destination', (req, res)=>{
+    const destination = req.params.destination
+
+     Trip.find({ "destination" : {$regex: '.*' + destination + '.*' } })
+     .then((trip)=> res.json(trip))
+     .catch((err) => res.json(err))
+    })
 
 
 

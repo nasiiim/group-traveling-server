@@ -28,7 +28,7 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 
 const tripRouter = require("./routes/trip.routes")
-app.use("/trip", isAuthenticated, tripRouter)
+app.use("/api", tripRouter)
 
 const authRouter = require("./routes/auth.routes"); 
 app.use("/auth", authRouter);
