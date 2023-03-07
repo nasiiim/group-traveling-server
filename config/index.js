@@ -17,7 +17,7 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: ["http://localhost:3000"],
+      origin: ["http://localhost:3006"],
     })
   );
   // In development environment the app logs
