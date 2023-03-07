@@ -23,19 +23,19 @@ router.get("/trips", (req, res, next) => {
 })
 
 // get a specific trip by id
-// router.get("/trips/:tripId", (req, res, next) => {
-//     const { tripId } = req.params
+router.get("/trips/:tripId", (req, res, next) => {
+    const { tripId } = req.params
 
-//     if (!mongoose.Types.ObjectId.isValid(tripId)) {
-//         res.status(400).json({ message: "Specified id is not valid" })
-//         return
-//     }
+    if (!mongoose.Types.ObjectId.isValid(tripId)) {
+        res.status(400).json({ message: "Specified id is not valid" })
+        return
+    }
 
-//     Trip.findById(tripId)
-//     .populate("subscriber")
-//     .then((trip) => res.status(200).json(trip))
-//     .catch((err) => res.json(err))
-// })
+    Trip.findById(tripId)
+    // .populate("subscriber")
+    .then((trip) => res.status(200).json(trip))
+    .catch((err) => res.json(err))
+})
 
 
 
