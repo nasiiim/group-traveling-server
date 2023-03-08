@@ -20,16 +20,22 @@ router.post("/trips", (req, res, next) => {
 router.get("/trips", isAuthenticated, (req, res, next) => {
     console.log(`req.payload`, req.payload);
     const type = req.query.type;
+    const destination = req.query.destination
     if (type === 'own') {
         const userId = req.payload._id
         Trip.find({ "creatorId": userId })
-            .populate("creatorId")
+            // .populate("creatorId")
             .then((filteredTrips) => res.json(filteredTrips))
             .catch((err) => res.json(err))
-    } else {
+    } else if (type === 'all') {
         Trip.find()
             // .populate("subscriber")
             .then((allTrips) => res.json(allTrips))
+            .catch((err) => res.json(err))
+    }
+    else if (destination) {
+        Trip.find({ "destination": new RegExp(destination, 'i') })
+            .then((trip) => res.json(trip))
             .catch((err) => res.json(err))
     }
 
@@ -52,13 +58,6 @@ router.get("/trips/:tripId", (req, res, next) => {
 
 
 
-router.get('/trips/:destination', (req, res) => {
-    const destination = req.params.destination
-
-    Trip.find({ "destination": { $regex: '.*' + destination + '.*' } })
-        .then((trip) => res.json(trip))
-        .catch((err) => res.json(err))
-})
 
 
 
