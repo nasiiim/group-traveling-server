@@ -3,10 +3,10 @@ const { Schema, model } = require("mongoose");
 
 const tripSchema = new Schema({
      
-    // creatorId: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "User"
-    // },
+    creatorId: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
     startDate: { 
         type: Date, 
         required: true },
