@@ -18,10 +18,10 @@ const tripSchema = new Schema({
         type: String,
         required: true
     },
-    // subscriber: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: "User"
-    // }]
+    subscriber: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }]
     // accomodition: {
     //     type: String,
     //     ref: 'Accomodation'
