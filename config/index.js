@@ -15,11 +15,13 @@ const cors = require("cors");
 module.exports = (app) => {
   app.set("trust proxy", 1);
 
+  const FRONTEND_URL = process.env.ORIGIN
+
   app.use(
     cors({
-      origin: ["http://localhost:3006"],
+      origin: [FRONTEND_URL]
     })
-  );
+  )
   // In development environment the app logs
   app.use(logger("dev"));
 
