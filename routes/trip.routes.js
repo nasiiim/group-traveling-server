@@ -55,7 +55,29 @@ router.get("/trips/:tripId", (req, res, next) => {
         .catch((err) => res.json(err))
 })
 
+// add subscriber
+router.post("/trips/:tripId/subscribers/:userId", (req, res, next) => {
+    const { tripId } = req.params
+    const { userId } = req.params
 
+    Trip.findByIdAndUpdate(
+        tripId, 
+        { $push: { subscriber: userId } },
+        { new: true }
+        )
+        .populate("subscriber", "_id email name")
+    .then((updatedTrip) => res.json(updatedTrip))
+    .catch((err) => res.json(err))
+})
+
+router.get("/trips/:tripId/subscribers", (req, res, next) => {
+    const { tripId } = req.params
+
+    Trip.findById( tripId )
+        .populate("subscriber", "_id email name")
+    .then((updatedTrip) => res.json(updatedTrip))
+    .catch((err) => res.json(err))
+})
 
 
 
